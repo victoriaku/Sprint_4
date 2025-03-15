@@ -29,6 +29,9 @@ public class MainPage {
     public static final By LOGO_YANDEX_LINK = By.className("Header_LogoYandex__3TSOI");
     public static final By LOGO_SCOOTER_LINK = By.className("Header_LogoScooter__3lsAR");
 
+    //Поиск элемента по тексту
+    public static final String ELEMENT_BY_TEXT = ".//*[text()='%s']";
+
     public MainPage(WebDriver driver){
         this.driver = driver;
     }
@@ -58,7 +61,7 @@ public class MainPage {
 
     //Показать ответ на вопрос в блоке "Вопросы о важном"
     public void clickAccordionItem(String question){
-        WebElement element = driver.findElement(By.xpath(String.format(".//*[text()='%s']", question)));
+        WebElement element = driver.findElement(By.xpath(String.format(ELEMENT_BY_TEXT, question)));
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(element));
         element.click();
@@ -66,7 +69,7 @@ public class MainPage {
 
     //Проверить, есть ли на странице текст
     public boolean hasAnswerInAccordion(String answer){
-        return !driver.findElements(By.xpath(String.format(".//*[text()='%s']", answer))).isEmpty();
+        return !driver.findElements(By.xpath(String.format(ELEMENT_BY_TEXT, answer))).isEmpty();
     }
 
     //Нажать на кнопку "Заказать" вверху страницы

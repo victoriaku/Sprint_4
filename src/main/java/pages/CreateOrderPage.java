@@ -11,6 +11,7 @@ public class CreateOrderPage {
     public static final By SURNAME_INPUT = By.xpath(".//input[@placeholder='* Фамилия']");
     public static final By ADDRESS_INPUT = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
     public static final By METRO_STATION_FIELD = By.className("select-search__value");
+    public static final String METRO_STATION_SELECT_BUTTON = ".//*[text()='%s']/parent::button";
     public static final By PHONE_NUMBER_INPUT =
             By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
     //Кнопка "Далее" на форме "Для кого самокат"
@@ -19,6 +20,7 @@ public class CreateOrderPage {
     //Поля формы "Про аренду"
     public static final By DELIVERY_DATE_INPUT = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
     public static final By RENTAL_PERIOD_DROPDOWN = By.xpath(".//div[@class='Dropdown-control']");
+    public static final String RENTAL_PERIOD_OPTION = ".//div[@role='option' and text()='%s']";
     public static final By COMMENT_INPUT = By.xpath(".//input[@placeholder='Комментарий для курьера']");
     //Кнопка "Заказать" на форме "Про аренду"
     public static final By CREATE_ORDER_BUTTON =
@@ -51,7 +53,7 @@ public class CreateOrderPage {
     //Выбрать станцию метро из саджеста
     public void chooseMetroStation(String metroStation){
         driver.findElement(METRO_STATION_FIELD).click();
-        WebElement element = driver.findElement(By.xpath(String.format(".//*[text()='%s']/parent::button", metroStation)));
+        WebElement element = driver.findElement(By.xpath(String.format(METRO_STATION_SELECT_BUTTON, metroStation)));
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
         element.click();
     }
@@ -86,7 +88,7 @@ public class CreateOrderPage {
     //Выбрать срок аренды
     public void setRentalPeriod(String rentalPeriod) {
         driver.findElement(RENTAL_PERIOD_DROPDOWN).click();
-        driver.findElement(By.xpath(String.format(".//*[text()='%s']", rentalPeriod))).click();
+        driver.findElement(By.xpath(String.format(RENTAL_PERIOD_OPTION, rentalPeriod))).click();
     }
 
     //Выбрать цвет самоката
